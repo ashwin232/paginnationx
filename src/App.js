@@ -77,12 +77,14 @@ const App = () => {
     
           if (response.status === 200) {
             setItems(response.data);
+            const tableRows = document.querySelectorAll('table tbody tr');
+            if (tableRows.length < 10) {
+              alert("Failed to fetch data. Insufficient data in the table.");
+            }
           } else {
-            console.error("Unexpected response status:", response.status);
             alert("Failed to fetch data. Unexpected response status.");
           }
         } catch (error) {
-          console.error("Failed to fetch data", error);
           if (error.response && error.response.status === 500) {
             alert("Failed to fetch data. Server error (status code 500).");
           } else {
