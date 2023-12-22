@@ -74,12 +74,23 @@ const App = () => {
       const fetchData = async () => {
         try {
           const response = await axios.get('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json');
-          setItems(response.data);
+    
+          if (response.status === 200) {
+            setItems(response.data);
+          } else {
+            console.error("Unexpected response status:", response.status);
+            alert("Failed to fetch data. Unexpected response status.");
+          }
         } catch (error) {
-          alert("Failed to fetch data");
+          console.error("Failed to fetch data", error);
+          if (error.response && error.response.status === 500) {
+            alert("Failed to fetch data. Server error (status code 500).");
+          } else {
+            alert("Failed to fetch data");
+          }
         }
       };
-  
+    
       fetchData();
     }, []);
 
