@@ -76,7 +76,7 @@ const App = () => {
                 setItems(response.data);
             })
             .catch(error => {
-                console.error("Failed to fetch data",error)
+                console.log("Failed to fetch data",error)
             });
     }, []);
 
